@@ -12,6 +12,3 @@ adapters:
   left: CAAGCGATTCAAAGTTCTATCCG
   right: ATCGTATAGTAAACGAGCGC
 
-# Extra bowtie flags, e.g. "-v 1 -m 1 --best --strata" for stricter assignment.
-# Empty preserves the original pipeline's behaviour.
-bowtie_extra: ""

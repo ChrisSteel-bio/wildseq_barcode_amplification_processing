@@ -36,14 +36,13 @@ rule bowtie_map:
         "mapped/{sample}_Twist_library_mapped.bowtie",
     params:
         prefix=config["barcode_index"],
-        extra=config.get("bowtie_extra", ""),
     threads: 8
     conda:
         "../envs/bowtie.yaml"
     log:
         "logs/bowtie_map/{sample}.log",
     shell:
-        "bowtie -r -p {threads} {params.extra} -x {params.prefix} {input.inserts} > {output} 2> {log}"
+        "bowtie -r -p {threads} -x {params.prefix} {input.inserts} > {output} 2> {log}"
 
 
 rule count_barcodes:
