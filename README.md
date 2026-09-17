@@ -1,45 +1,53 @@
-# WILDseq barcode abundance pipeline
+# WILDseq barcode counts
 
-Counts lineage barcode abundance from RT WILDseq amplicon sequencing.
+Snakemake pipeline for quantifying lineage barcode abundance from
+[WILDseq](https://elifesciences.org/articles/80981) RT amplicon sequencing.
 
 ```
-raw fastq  ->  extract insert between adapters  ->  map to Twist library  ->  per-barcode counts
+fastq ──▶ extract insert between adapters ──▶ map to Twist library ──▶ per-barcode counts
+            (seqkit + grep)                      (bowtie)              (sort | uniq -c)
 ```
 
-Output: `final_counts/{sample}_Twist_BC_count.txt` — two columns, count and barcode ID.
+**Output:** `final_counts/{sample}_Twist_BC_count.txt` — two columns, read count and barcode ID.
 
-## Setup
+## Configure
 
-Edit `config/config.yaml` to point at your reads directory and bowtie index, then
-list samples in `config/samples.csv`:
+`config/samples.csv`:
 
 ```csv
 sample_name,path
-Rituximab_Baseline1,reads/SLX-26596.i715-i503.fq.gz
+Rituximab_Baseline1,ritux_pressure_2/SLX-26596.i715-i503.fq.gz
 ```
 
-`path` is relative to `reads_dir`.
+`config/config.yaml` sets `reads_dir` (what `path` is relative to), `barcode_index`
+(bowtie index prefix for the theoretical barcode library), the flanking adapters,
+and `bowtie_extra`.
 
 ## Run
 
-Locally:
-
 ```bash
-snakemake --use-conda --cores 8
+snakemake --use-conda --cores 8            # local
+sbatch run_slurm.sh                        # SLURM, whole workflow in one job
+snakemake --profile profiles/slurm         # SLURM, one job per rule
 ```
 
-On SLURM (Cambridge CSD3):
+The profile needs `pip install snakemake-executor-plugin-slurm`, and its
+`slurm_account` / `slurm_partition` are set for Cambridge CSD3 — change them for
+your cluster.
 
-```bash
-snakemake --profile profiles/slurm
+## Barcode assignment stringency
+
+`bowtie_extra` is empty by default, which keeps bowtie's permissive defaults: up to
+two seed mismatches and no multimapper suppression, so a read matching several
+theoretical barcodes is assigned to an arbitrary one. For stricter assignment:
+
+```yaml
+bowtie_extra: "-v 1 -m 1 --best --strata"
 ```
 
-Adjust `slurm_account` and `slurm_partition` in `profiles/slurm/config.yaml`.
+This changes results, so it is off by default.
 
-## Notes
+## Requirements
 
-`bowtie_extra` in the config is empty by default, which keeps bowtie's permissive
-defaults (up to 2 seed mismatches, no multimapper suppression). Set it to
-`-v 1 -m 1 --best --strata` for stricter barcode assignment.
-
-Requires snakemake >= 8 and `snakemake-executor-plugin-slurm` for the SLURM profile.
+Snakemake ≥ 8 and conda. Tool environments (seqkit, bowtie) are created
+automatically by `--use-conda`.
