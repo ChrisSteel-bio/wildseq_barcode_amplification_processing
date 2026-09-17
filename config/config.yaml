@@ -1,0 +1,17 @@
+# Sample sheet: requires columns sample_name,path
+samples: config/samples.csv
+
+# Directory that the 'path' column in the sample sheet is relative to
+reads_dir: "/home/cjs236/rds/rds-burkitt-lymphoma-cyiwgCzJok8/WILDseq/white_list"
+
+# Bowtie index prefix for the theoretical Twist barcode library
+barcode_index: "/home/cjs236/rds/rds-burkitt-lymphoma-cyiwgCzJok8/WILDseq/white_list/Twist_barcode_library/theoretical_barcodes"
+
+# Flanking adapters the barcode insert sits between
+adapters:
+  left: CAAGCGATTCAAAGTTCTATCCG
+  right: ATCGTATAGTAAACGAGCGC
+
+# Extra bowtie flags, e.g. "-v 1 -m 1 --best --strata" for stricter assignment.
+# Empty preserves the original pipeline's behaviour.
+bowtie_extra: ""

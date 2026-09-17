@@ -1,0 +1,11 @@
+sample_name,path
+Rituximab_Resistant_R1,ritux_pressure_2/SLX-26596.i715-i511.AAHH7MJM5.s_1.r_1.fq.gz
+Rituximab_control_C3,ritux_pressure_2/SLX-26596.i715-i505.AAHH7MJM5.s_1.r_1.fq.gz
+Rituximab_control_C2,ritux_pressure_2/SLX-26596.i715-i506.AAHH7MJM5.s_1.r_1.fq.gz
+Rituximab_control_C1,ritux_pressure_2/SLX-26596.i715-i507.AAHH7MJM5.s_1.r_1.fq.gz
+Rituximab_Resistant_R3,ritux_pressure_2/SLX-26596.i715-i508.AAHH7MJM5.s_1.r_1.fq.gz
+Rituximab_Resistant_R2,ritux_pressure_2/SLX-26596.i715-i510.AAHH7MJM5.s_1.r_1.fq.gz
+Rituximab_Resistant_R2_2,ritux_pressure_2/SLX-26596.i714-i510.AAHH7MJM5.s_1.r_1.fq.gz
+Rituximab_Baseline3,ritux_pressure_2/SLX-26596.i714-i511.AAHH7MJM5.s_1.r_1.fq.gz
+Rituximab_Baseline2,ritux_pressure_2/SLX-26596.i715-i502.AAHH7MJM5.s_1.r_1.fq.gz
+Rituximab_Baseline1,ritux_pressure_2/SLX-26596.i715-i503.AAHH7MJM5.s_1.r_1.fq.gz

@@ -1,0 +1,16 @@
+executor: slurm
+jobs: 10
+use-conda: true
+keep-going: true
+rerun-incomplete: true
+default-resources:
+  slurm_account: STURNER-SL3-CPU
+  slurm_partition: icelake
+  runtime: 120
+  mem_mb: 8000
+  cpus_per_task: 1
+set-resources:
+  bowtie_map:
+    cpus_per_task: 8
+    mem_mb: 16000
+    runtime: 240

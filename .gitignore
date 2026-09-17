@@ -1,0 +1,11 @@
+.snakemake/
+trimmed/
+mapped/
+final_counts/
+logs/
+slurm_logs/
+*.fq
+*.fq.gz
+*.fastq
+*.fastq.gz
+*.ebwt

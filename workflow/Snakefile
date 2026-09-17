@@ -1,0 +1,24 @@
+import pandas as pd
+
+configfile: "config/config.yaml"
+
+samples = (
+    pd.read_csv(config["samples"])
+    .drop_duplicates(subset="sample_name")
+    .set_index("sample_name", drop=False)
+    .sort_index()
+)
+
+SAMPLES = samples["sample_name"].tolist()
+
+
+def get_reads(wildcards):
+    return os.path.join(config["reads_dir"], samples.loc[wildcards.sample, "path"])
+
+
+include: "rules/counts.smk"
+
+
+rule all:
+    input:
+        expand("final_counts/{sample}_Twist_BC_count.txt", sample=SAMPLES),
