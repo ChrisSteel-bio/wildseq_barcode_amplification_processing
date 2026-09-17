@@ -35,6 +35,18 @@ The profile needs `pip install snakemake-executor-plugin-slurm`, and its
 `slurm_account` / `slurm_partition` are set for Cambridge CSD3 — change them for
 your cluster.
 
+## Barcode library
+
+The bowtie index is 1.5 GB, too large for git. Rebuild it from the 2,900 barcodes
+in `resources/barcodes.txt`:
+
+```bash
+./build_index.sh              # writes Twist_barcode_library/
+```
+
+Then point `barcode_index` at the result. The script reproduces the original
+index byte-for-byte.
+
 ## Requirements
 
 Snakemake ≥ 8 and conda. Tool environments (seqkit, bowtie) are created
